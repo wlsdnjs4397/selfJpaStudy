@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/component/head::head"></head>
+<th:block th:fragment="header">
+  <body class="header-body">
+    <header>
+      <!-- 상단 로고 및 사용자 정보 -->
+      <div class="header-top">
+        <!-- 로고 -->
+        <div class="logo">
+          <img src="/image/logo.jpg" alt="Logo">
+        </div>
+        <!-- 사용자 정보 -->
+        <div class="user-info">
+          <span>Welcome, <strong th:text="${nickName}">NickName</strong></span>
+          <span class="logout-icon" title="Logout">&#x1F511;</span> <!-- 🔑 아이콘 -->
+        </div>
+      </div>
+      <!-- 카테고리 -->
+      <nav class="categories">
+        <a href="/category/1">Home</a>
+        <a href="/category/2">Articles</a>
+        <a href="/category/3">Tutorials</a>
+        <a href="/category/4">Contact</a>
+      </nav>
+    </header>
+  </body>
+</th:block>
+</html>

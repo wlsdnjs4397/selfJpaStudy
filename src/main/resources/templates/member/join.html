@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head th:replace="layout/component/head::head"></head>
+
+<script>
+    $(function(){
+        $("#joinForm").validate({
+            rules : {
+                loginId : {
+                    required : true
+                },
+                password : {
+                    required: true
+                }
+            },
+            messages : {
+                loginId : {
+                    required : "아이디를 입력해주세요.",
+                },
+                password: {
+                    required : "비밀번호를 입력해주세요."
+                },
+                name : {
+                    required : "이름을 입력해주세요."
+                },
+                email : {
+                    required : "이메일을 입력해주세요."
+                },
+                nickName : {
+                    required : "닉네임을 입력해주세요."
+                }
+            }
+        });
+
+        $("#join").on("click", function(){
+            if($("#joinForm").valid()) {
+                if($("#idCheck").val() != "Y"){
+                    alert("아이디 중복확인을 해주세요.");
+                    return;
+                }
+
+                $.ajax({
+                    type: "post",
+                    url: "/member/join-proc",
+                    dataType: "json",
+                    data: $("#joinForm").serialize(),
+                    success: function (result) {
+                        alert(result.message);
+                        if (result.succeed) {
+                            location.href = '/member/login';
+                        }
+                    },
+                    fail: function (result) {
+                        alert("처리중 문제가 발생했습니다.");
+                    }
+                });
+            }
+        });
+
+        $("#checkBtn").on("click", function(){
+            const loginId = $.trim($("#loginId").val());
+            if(loginId == ""){
+                alert("아이디를 입력해주세요.");
+                return;
+            }
+
+            $.ajax({
+                type : "post",
+                url : "/member/id-check",
+                data : {"loginId" : loginId},
+                dataType : "json",
+                success : function(result){
+                    if(result.succeed){
+                        alert("사용 가능한 아이디 입니다.");
+                        $("#idCheck").val("Y");
+                    }else{
+                        alert("이미 사용중인 아이디 입니다.");
+                    }
+                },
+                fail : function(error){
+                    alert("처리중 문제가 발생했습니다.");
+                }
+            });
+        });
+    });
+</script>
+<body class="join-body">
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="joinForm">
+            <input type="text" name="loginId" id="loginId" placeholder="ID" required>
+            <input type="hidden" name="idCheck" id="idCheck"/>
+            <button type="button" id="checkBtn" class="btnTypeA">중복확인</button>
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="nickName" placeholder="Nickname" required>
+            <button type="button" id="join" class="btnTypeB">SignUp</button>
+        </form>
+    </div>
+</body>
+</html>

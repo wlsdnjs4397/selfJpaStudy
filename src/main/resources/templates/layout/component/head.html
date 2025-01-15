@@ -1,0 +1,13 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <th:block th:fragment="head">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title th:text="${pageTitle ?: 'AccountBook'}"></title>
+
+        <link rel="stylesheet" type="text/css" href="/css/common.css">
+
+        <script type="text/javascript" src="/js/jquery-3.7.0.min.js"></script>
+        <script src="/js/validate/jquery.validate-1.19.5.js"></script>
+        <script src="/js/validate/additional-methods.js"></script>
+        <script src="/js/validate/localization/messages_ko.js"></script>
+    </th:block>
+</html>

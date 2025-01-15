@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<th:block th:replace="headScript">
+    <script>
+        $(function(){
+           $("#add").on("click", function(){
+                location.href='form';
+           });
+        });
+    </script>
+</th:block>
+<div class="list-body" layout:fragment="bodyContent">
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td><a href="/post/1">How to Learn Java</a></td>
+            <td>John Doe</td>
+            <td>2025-01-01</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td><a href="/post/2">Spring Boot Tips</a></td>
+            <td>Jane Smith</td>
+            <td>2025-01-05</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td><a href="/post/3">Hibernate Basics</a></td>
+            <td>Mark Lee</td>
+            <td>2025-01-10</td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="button" id="add">글쓰기</button>
+</div>
+</html>
