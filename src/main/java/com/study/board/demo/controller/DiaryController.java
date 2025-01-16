@@ -6,6 +6,7 @@ import com.study.board.demo.code.Status;
 import com.study.board.demo.common.annotation.LoginId;
 import com.study.board.demo.common.annotation.PublicAccess;
 import com.study.board.demo.entity.DiaryEntity;
+import com.study.board.demo.exception.InvalidAccessException;
 import com.study.board.demo.service.DiaryService;
 import com.study.board.demo.utils.ResultMessage;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.beans.PropertyEditorSupport;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/diary")
@@ -25,8 +27,14 @@ public class DiaryController {
     private final DiaryService diaryService;
 
     @GetMapping("/list")
-    public ModelAndView list(@LoginId String loginId){
+    public ModelAndView list(){
         ModelAndView mav = new ModelAndView();
+
+        int count = diaryService.getCount(Status.SHOW);
+        List<DiaryEntity> list = diaryService.getList(Status.SHOW);
+
+        mav.addObject("list", list);
+        mav.addObject("count", count);
         mav.setViewName("/diary/list");
         return mav;
     }
@@ -47,6 +55,24 @@ public class DiaryController {
         mav.addObject("info", diary);
         mav.addObject("mode", mode);
         mav.setViewName("/diary/form");
+        return mav;
+    }
+
+    @GetMapping("/view/{seq}")
+    public ModelAndView view(@PathVariable("seq") Integer seq){
+        ModelAndView mav = new ModelAndView();
+
+        if(null == seq || 1 < seq){
+            throw new InvalidAccessException("잘못된 접근입니다.");
+        }
+
+        DiaryEntity info = diaryService.getInfo(seq);
+        if(null == info){
+            throw new InvalidAccessException("잘못된 접근입니다.");
+        }
+
+
+
         return mav;
     }
 

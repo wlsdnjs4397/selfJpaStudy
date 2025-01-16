@@ -27,4 +27,6 @@ public class DiaryEntity {
     private Status status;
     private Date createDate;
     private Date modifyDate;
+
+    private Integer rnum;
 }

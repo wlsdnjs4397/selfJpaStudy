@@ -1,4 +1,4 @@
-input[type=text], input[type=password], input[type=email] {
+.textType1 {
     width: 90%;
     padding: 10px;
     margin: 10px 0;
@@ -11,6 +11,30 @@ input[type=text], input[type=password], input[type=email] {
     border-color: #f00;
     color: #f00;
     font-size: 12px;
+}
+
+.search-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.search-box input, .search-box select {
+    padding: 8px;
+    font-size: 14px;
+    margin-right: 10px;
+    width: 180px;
+}
+.search-box button {
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+.search-box button:hover {
+    background-color: #45a049;
 }
 
 /* radio button css */
@@ -192,8 +216,7 @@ option {
 
 .list-body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+    padding: 2%;
     background-color: #f8f9fa;
     justify-content: center;
     align-items: center;

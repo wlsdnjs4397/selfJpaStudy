@@ -1,9 +1,13 @@
 package com.study.board.demo.service;
 
+import com.study.board.demo.code.Status;
 import com.study.board.demo.entity.DiaryEntity;
 import com.study.board.demo.repository.DiaryRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -22,5 +26,17 @@ public class DiaryService {
     }
 
     public void remove(DiaryEntity diary) {
+    }
+
+    public List<DiaryEntity> getList(Status status) {
+        return diaryRepository.findByStatus(status);
+    }
+
+    public int getCount(Status status) {
+        return diaryRepository.countByStatus(status);
+    }
+
+    public DiaryEntity getInfo(Integer seq) {
+        return diaryRepository.findBySeq(seq);
     }
 }
