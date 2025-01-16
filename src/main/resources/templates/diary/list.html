@@ -4,13 +4,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <th:block th:replace="headScript">
-    <script>
-        $(function(){
-           $("#add").on("click", function(){
-                location.href='form';
-           });
-        });
-    </script>
 </th:block>
 <div class="list-body" layout:fragment="bodyContent">
     <table>
@@ -43,6 +36,9 @@
         </tr>
         </tbody>
     </table>
-    <button type="button" id="add">글쓰기</button>
+    <div class="bottom-area">
+        <button type="button" id="add" onclick="location.href='form'" class="btnType1 right-area">글쓰기</button>
+    </div>
 </div>
+
 </html>

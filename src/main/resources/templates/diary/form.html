@@ -1,10 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<th:block layout:fragment="headScripts">
+    <script>
+        $(function(){
+            $("#add").on("click", function(){
+                $.ajax({
+                    type : "post",
+                    url : "proc",
+                    data : $("#diaryForm").serialize(),
+                    dataType : "json",
+                    success : function(result){
+                        alert(result.message);
+                        if(result.succeed){
+                            location.href="list";
+                        }
+                    },
+                    fail : function(error){
+                        alert("처리중 문제가 발생했습니다.");
+                    }
+                })
+            });
+        });
+    </script>
+</th:block>
+<div class="form-body" layout:fragment="bodyContent" th:with="EditMode = ${T(com.study.board.demo.code.EditMode)}">
+    <form id="diaryForm">
+        <input type="hidden" name="mode" th:value="${mode}"/>
+        <table>
+            <tr>
+                <th>카테고리</th>
+                -<td th:with="DiaryCategory = ${T(com.study.board.demo.code.DiaryCategory)}">
+                    <div class="select-area">
+                        <select name="category">
+                            <option value="">선택</option>
+                            <option th:value="${DiaryCategory.DAILY.code}" th:text="${DiaryCategory.DAILY.text}" th:selected="${info.category eq DiaryCategory.DAILY}"></option>
+                            <option th:value="${DiaryCategory.BUSINESS.code}" th:text="${DiaryCategory.BUSINESS.text}" th:selected="${info.category eq DiaryCategory.BUSINESS}"></option>
+                            <option th:value="${DiaryCategory.SPECIAL.code}" th:text="${DiaryCategory.SPECIAL.text}" th:selected="${info.category eq DiaryCategory.SPECIAL}"></option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>공개여부</th>
+                <td th:with="Status = ${T(com.study.board.demo.code.Status)}">
+                    <div class="radio-area">
+                        <input type="radio" name="status" th:id="${'staus'+Status.SHOW.code}" th:value="${Status.SHOW.code}"/>
+                        <label th:text="${Status.SHOW.text}" th:for="${'staus'+Status.SHOW.code}"></label>
+                        <input type="radio" name="status" th:id="${'staus'+Status.HIDDEN.code}" th:value="${Status.HIDDEN.code}"/>
+                        <label th:text="${Status.HIDDEN.text}" th:for="${'staus'+Status.HIDDEN.code}"></label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>제목</th>
+                <td>
+                    <input type="text" name="title" th:value="${info.title}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td>
+                    <textarea name="contents"></textarea>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div class="bottom-area">
+        <button type="button" id="add" class="btnType1" th:text="${mode == EditMode.CREATE ? '등록' : '수정'}"></button>
+    </div>
+</div>
 </html>

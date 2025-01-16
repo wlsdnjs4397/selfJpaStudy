@@ -1,8 +1,10 @@
 package com.study.board.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.study.board.demo.code.DiaryCategory;
+import com.study.board.demo.code.Status;
+import com.study.board.demo.code.type.DiaryCategoryConverter;
+import com.study.board.demo.code.type.StatusConverter;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,14 +13,18 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@Table(name= "T_DIALY")
 public class DiaryEntity {
     @Id
     @GeneratedValue
-    private String seq;
+    private Long seq;
+    @Convert(converter = DiaryCategoryConverter.class)
+    private DiaryCategory category;
     private String title;
     private String contents;
     private String writer;
-    private String publicYn;
+    @Convert(converter = StatusConverter.class)
+    private Status status;
     private Date createDate;
     private Date modifyDate;
 }

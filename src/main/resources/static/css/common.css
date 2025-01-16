@@ -1,4 +1,4 @@
-input {
+input[type=text], input[type=password], input[type=email] {
     width: 90%;
     padding: 10px;
     margin: 10px 0;
@@ -13,6 +13,84 @@ input {
     font-size: 12px;
 }
 
+/* radio button css */
+.radio-area {
+    padding: 15px 10px;
+}
+.radio-area input[type=radio]{
+    display: none;
+}
+.radio-area input[type=radio]+label{
+    display: inline-block;
+    cursor: pointer;
+    height: 24px;
+    width: 90px;
+    border: 1px solid #333;
+    line-height: 24px;
+    text-align: center;
+    font-weight:bold;
+    font-size:13px;
+}
+.radio-area input[type=radio]+label{
+    background-color: #fff;
+    color: #333;
+}
+.radio-area input[type=radio]:checked+label{
+    background-color: #333;
+    color: #fff;
+}
+
+/* select css */
+select {
+    width: 200px;
+    padding: 5px;
+    font-size: 16px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    appearance: none; /* 브라우저 기본 스타일 제거 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg'); /* 드롭다운 화살표 커스텀 */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px;
+}
+
+/* select 요소의 컨테이너에 화살표 추가 */
+.select-area {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+}
+
+/* 화살표를 select 박스 옆에 배치 */
+.select-area::after {
+    content: '\25BC'; /* 아래 화살표 기호 */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 14px;
+    color: #4CAF50;
+}
+
+/* select 박스가 포커스될 때 스타일 */
+select:focus {
+    border-color: #ff5e5e;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 94, 94, 0.5);
+}
+
+/* 옵션 스타일 */
+option {
+    padding: 10px;
+}
+
+
+/* button css */
 .btnTypeA{
     width: 50%;
     padding: 5px;
@@ -31,6 +109,25 @@ input {
     border-radius: 4px;
     cursor: pointer;
 }
+
+.bottom-area {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽으로 정렬 */
+    padding: 10px; /* 선택적 여백 */
+    background: #f8f9fa;
+}
+
+.right-area{
+    background: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.btnType1	{ height:28px; .height:26px; padding:0 10px; margin:0; border:3px double #fff; .border-color:#6181a5; background:#6181a5; cursor:pointer; color:#fff; line-height:18px; font-weight:400; overflow:visible; }
+.btnType2	{ height:28px; .height:26px; padding:0 10px; margin:0; border:3px double #fff; .border-color:#c0c3cd; background:#c0c3cd; cursor:pointer; color:#fff; line-height:18px; font-weight:400; overflow:visible; }
+.btnType3	{ height:22px; .height:20px; padding:0 5px; margin:0; border:3px double #fff; .border-color:#6181a5; background:#6181a5; cursor:pointer; color:#fff; .line-height:12px; font-size:11px; font-weight:normal; overflow:visible; }
+.btnType4	{ height:22px; .height:20px; padding:0 5px; margin:0; border:3px double #fff; .border-color:#c0c3cd; background:#c0c3cd; cursor:pointer; color:#fff; .line-height:12px; font-size:11px; font-weight:normal; overflow:visible; }
 
 .login-body {
     font-family: Arial, sans-serif;

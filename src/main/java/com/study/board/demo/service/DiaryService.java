@@ -14,4 +14,13 @@ public class DiaryService {
         return diaryRepository.findBySeq(seq);
     }
 
+    public void create(DiaryEntity diary) {
+        diaryRepository.save(diary);
+    }
+
+    public void modify(DiaryEntity diary) {
+    }
+
+    public void remove(DiaryEntity diary) {
+    }
 }

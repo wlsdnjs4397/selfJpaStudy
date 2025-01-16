@@ -36,7 +36,7 @@ public class LayoutInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView mav) throws Exception {
         PublicAccess publicAccess = ((HandlerMethod) handler).getMethodAnnotation(PublicAccess.class);
         boolean publicPage = publicAccess != null;
-        if (!publicPage) {
+        if (mav != null && !publicPage) {
             String loginId = getLoginId(request);
             if (null != loginId) {
                header(loginId, mav);
