@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface DiaryRepository extends JpaRepository<DiaryEntity, Long> , JpaSpecificationExecutor<DiaryEntity> {
     DiaryEntity findBySeq(Integer seq);
-
     List<DiaryEntity> findByStatus(Status status);
-
-    int countByStatus(Status status);
+    void deleteBySeq(Long seq);
 }

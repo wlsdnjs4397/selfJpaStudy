@@ -22,7 +22,7 @@ public class ExceptionHandlerController {
     public ModelAndView businessError(HttpServletRequest request, HttpServletResponse response, Exception e, HandlerMethod handlerMethod){
         String forwardUrl = "/index";
         if(e instanceof NonLoginException){
-            forwardUrl = "/login";
+            forwardUrl = "/member/login";
         }else if(e instanceof InvalidAccessException){
             forwardUrl = null;
         }

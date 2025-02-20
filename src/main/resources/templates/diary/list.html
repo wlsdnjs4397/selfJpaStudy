@@ -6,19 +6,27 @@
 <th:block th:replace="headScript">
 </th:block>
 <div class="list-body" layout:fragment="bodyContent">
-    <div class="search-box">
-        <input type="text" id="title" placeholder="제목">
-        <input type="text" id="author" placeholder="작성자">
-        <select id="category">
-            <option value="">카테고리 선택</option>
-            <option value="tech">기술</option>
-            <option value="life">생활</option>
-            <option value="business">비즈니스</option>
-        </select>
-        <input type="date" id="date">
-        <button onclick="searchPosts()">검색</button>
-    </div>
-
+    <form id="searchForm" action="list">
+        <div class="search-box">
+            <input type="hidden" name="page" th:value="${search.page}"/>
+            <input type="text" id="title" name="title" placeholder="제목" th:value="${search.title}">
+            <input type="text" id="author" name="author" placeholder="작성자" th:value="${search.author}">
+            <select id="category" name="category" th:with="DiaryCategory = ${T(com.study.board.demo.code.DiaryCategory)}">
+                <option value="">카테고리 선택</option>
+                <option th:value="${DiaryCategory.DAILY.code}" th:text="${DiaryCategory.DAILY.text}" th:selected="${search.category eq DiaryCategory.DAILY}"></option>
+                <option th:value="${DiaryCategory.BUSINESS.code}" th:text="${DiaryCategory.BUSINESS.text}" th:selected="${search.category eq DiaryCategory.BUSINESS}"></option>
+                <option th:value="${DiaryCategory.SPECIAL.code}" th:text="${DiaryCategory.SPECIAL.text}" th:selected="${search.category eq DiaryCategory.SPECIAL}"></option>
+            </select>
+            <div id="dateArea">
+                <input type="date" id="startDate" name="startDate" th:value="${#dates.format(search.startDate, 'yyyy-MM-dd')}">~
+                <input type="date" id="endDate" name="endDate" th:value="${#dates.format(search.endDate, 'yyyy-MM-dd')}">
+            </div>
+        </div>
+        <div class="search-button">
+            <button>검색</button>
+            <button type="button" onclick="location.href='list'">초기화</button>
+        </div>
+    </form>
     <div>
         총 <span th:text="${count}"></span>건
     </div>
@@ -26,6 +34,7 @@
         <thead>
         <tr>
             <th>#</th>
+            <th>Category</th>
             <th>Title</th>
             <th>Author</th>
             <th>Date</th>
@@ -34,8 +43,9 @@
         <tbody th:each="row,rowStat : ${list}">
         <tr>
             <td th:text="${count - rowStat.index}">1</td>
+            <td th:text="${row.category.text}"></td>
             <td><a th:href="${'view/'+row.seq}" th:text="${row.title}">How to Learn Java</a></td>
-            <td th:text="${row.writer}">John Doe</td>
+            <td th:text="${row.author}">John Doe</td>
             <td th:text="${#dates.format(row.createDate, 'yyyy-MM-dd')}">2025-01-01</td>
         </tr>
         </tbody>

@@ -22,7 +22,7 @@ public class DiaryEntity {
     private DiaryCategory category;
     private String title;
     private String contents;
-    private String writer;
+    private String author;
     @Convert(converter = StatusConverter.class)
     private Status status;
     private Date createDate;
