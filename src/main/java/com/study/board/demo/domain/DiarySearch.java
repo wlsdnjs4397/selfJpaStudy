@@ -14,6 +14,9 @@ import java.util.Date;
 public class DiarySearch {
 
     private int page = 1;
+    private int pageSize = 10;
+    private int blockSize = 5;
+
     private String title;
     private String author;
     private DiaryCategory category;

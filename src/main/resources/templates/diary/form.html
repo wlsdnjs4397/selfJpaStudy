@@ -29,10 +29,11 @@
 <div class="form-body" layout:fragment="bodyContent" th:with="EditMode = ${T(com.study.board.demo.code.EditMode)}">
     <form id="diaryForm">
         <input type="hidden" name="mode" th:value="${mode}"/>
+        <input type="hidden" name="seq" th:value="${info.seq}"/>
         <table>
             <tr>
                 <th>카테고리</th>
-                -<td th:with="DiaryCategory = ${T(com.study.board.demo.code.DiaryCategory)}">
+                <td th:with="DiaryCategory = ${T(com.study.board.demo.code.DiaryCategory)}">
                     <div class="select-area">
                         <select name="category">
                             <option value="">선택</option>
@@ -47,9 +48,9 @@
                 <th>공개여부</th>
                 <td th:with="Status = ${T(com.study.board.demo.code.Status)}">
                     <div class="radio-area">
-                        <input type="radio" name="status" th:id="${'staus'+Status.SHOW.code}" th:value="${Status.SHOW.code}"/>
+                        <input type="radio" name="status" th:id="${'staus'+Status.SHOW.code}" th:value="${Status.SHOW.code}" th:checked="${info.status ne Status.HIDDEN}"/>
                         <label th:text="${Status.SHOW.text}" th:for="${'staus'+Status.SHOW.code}"></label>
-                        <input type="radio" name="status" th:id="${'staus'+Status.HIDDEN.code}" th:value="${Status.HIDDEN.code}"/>
+                        <input type="radio" name="status" th:id="${'staus'+Status.HIDDEN.code}" th:value="${Status.HIDDEN.code}" th:checked="${info.status eq Status.HIDDEN}"/>
                         <label th:text="${Status.HIDDEN.text}" th:for="${'staus'+Status.HIDDEN.code}"></label>
                     </div>
                 </td>
@@ -63,7 +64,7 @@
             <tr>
                 <th>내용</th>
                 <td>
-                    <textarea name="contents"></textarea>
+                    <textarea name="contents" th:text="${info.contents}"></textarea>
                 </td>
             </tr>
         </table>

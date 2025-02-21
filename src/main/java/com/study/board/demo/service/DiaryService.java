@@ -26,14 +26,14 @@ public class DiaryService {
     }
 
     public void modify(DiaryEntity diary) {
+        diaryRepository.updateBySeq(diary.getSeq(), diary.getCategory(), diary.getTitle(), diary.getContents());
     }
     public void remove(Long seq) {
         diaryRepository.deleteBySeq(seq);
     }
 
     public Page<DiaryEntity> getList(DiarySearch search) {
-
-        Pageable pageable = PageRequest.of(search.getPage()-1, 1, Sort.by(Sort.Direction.DESC, "seq"));
+        Pageable pageable = PageRequest.of(search.getPage()-1, search.getPageSize(), Sort.by(Sort.Direction.DESC, "seq"));
         Page<DiaryEntity> pageResult = diaryRepository.findAll(
                 Specification.where(
                                 DiarySpecification.categoryContains(search.getCategory()))

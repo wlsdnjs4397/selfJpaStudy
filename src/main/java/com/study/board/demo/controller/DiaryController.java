@@ -6,6 +6,7 @@ import com.study.board.demo.entity.DiaryEntity;
 import com.study.board.demo.domain.DiarySearch;
 import com.study.board.demo.exception.InvalidAccessException;
 import com.study.board.demo.service.DiaryService;
+import com.study.board.demo.utils.Paging;
 import com.study.board.demo.utils.ResultMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,21 +30,23 @@ public class DiaryController {
 
         int count = diaryService.getCount(search);
         Page<DiaryEntity> list = diaryService.getList(search);
+        Paging paging = new Paging("list", count, search.getPage(), search.getPageSize(), search.getBlockSize());
 
         mav.addObject("list", list);
         mav.addObject("count", count);
         mav.addObject("search", search);
+        mav.addObject("paging", paging);
         mav.setViewName("/diary/list");
         return mav;
     }
 
     @GetMapping("/form")
-    public ModelAndView form(@RequestParam(required = false) Integer seq){
+    public ModelAndView form(@RequestParam(name = "seq", required = false) Integer seq){
         ModelAndView mav = new ModelAndView();
         EditMode mode = EditMode.CREATE;
 
         DiaryEntity diary = new DiaryEntity();
-        if(null != seq && 0 > seq){
+        if(null != seq && seq > 0){
             diary = diaryService.diaryBySeq(seq);
             if(null != diary){
                 mode = EditMode.MODIFY;
@@ -57,7 +60,7 @@ public class DiaryController {
     }
 
     @GetMapping("/view/{seq}")
-    public ModelAndView view(@PathVariable("seq") Integer seq){
+    public ModelAndView view(@PathVariable("seq") Integer seq, @LoginId String loginId){
         ModelAndView mav = new ModelAndView();
 
         if(null == seq || 1 > seq){
@@ -70,6 +73,7 @@ public class DiaryController {
         }
 
         mav.addObject("info", info);
+        mav.addObject("loginId", loginId);
         mav.setViewName("/diary/view");
         return mav;
     }
